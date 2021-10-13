@@ -25,9 +25,12 @@
       </p>
       <p v-else>Price: <strong>N/A</strong></p>
     </div>
-    <v-card-actions v-if="car.status === 'available'">
+    <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="white" class="purple" text :to="{ name: 'Details', params: { id: car.id } }">
+      <v-btn color="white" class="red darken-4" text @click="deleteCar(car.id)">
+        Delete
+      </v-btn>
+      <v-btn color="white" class="purple" text :to="{ name: 'Details', params: { id: car.id } }" v-if="car.status === 'available'">
         Details
       </v-btn>
     </v-card-actions>
@@ -40,7 +43,11 @@ export default {
   props: {
     car: Object,
   },
-  methods: {},
+  methods: {
+    deleteCar(value) {
+      return this.$emit('deleteThisCar', value);
+    },
+  },
 
   created() {},
 };

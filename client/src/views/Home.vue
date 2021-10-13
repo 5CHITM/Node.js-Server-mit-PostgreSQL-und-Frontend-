@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CarCards :cars="cars"></CarCards>
+    <CarCards :cars="cars" @deleteThisCar="deleteCar"></CarCards>
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
   },
   components: {
     CarCards,
+  },
+  methods: {
+    deleteCar(value) {
+      return this.$emit('deleteThisCar', value);
+    },
   },
 };
 </script>

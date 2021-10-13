@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex flex-wrap mb-6 justify-center" color="grey lighten-2" flat tile>
       <div v-for="car in cars" :key="car.id" outlined tile class="ma-3 d-flex" width="100%">
-        <carCard :car="car" @buycar="buyCar($event)"></carCard>
+        <carCard :car="car" @buycar="buyCar($event)" @deleteThisCar="deleteCar"></carCard>
       </div>
     </div>
   </div>
@@ -19,6 +19,11 @@ export default {
   },
   props: {
     cars: Array,
+  },
+  methods: {
+    deleteCar(value) {
+      return this.$emit('deleteThisCar', value);
+    },
   },
 };
 </script>

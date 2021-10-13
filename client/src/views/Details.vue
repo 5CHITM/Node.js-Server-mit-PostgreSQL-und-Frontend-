@@ -78,7 +78,7 @@ export default {
     },
     async buyCar() {
       try {
-        const { data } = await axios({
+        await axios({
           url: `http://127.0.0.1:3000/car/${this.car.id}`,
           method: 'patch',
           contentType: 'application/json',
@@ -87,7 +87,8 @@ export default {
             status: 'reserved',
           },
         });
-        // ToDo GetCar(id) damit die neuen Daten angezeigt werden
+        // ToDo: GetCar(id) damit die neuen Daten angezeigt werden
+        this.getCar(this.id);
         return this.$emit('refresh', true);
       } catch (error) {
         console.error(error);

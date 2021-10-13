@@ -2,7 +2,7 @@
   <v-app>
     <LogoBar></LogoBar>
     <v-main>
-      <router-view :cars="cars" @refresh="getCars()"></router-view>
+      <router-view :cars="cars" @refresh="getCars()" @deleteThisCar="deleteCar"></router-view>
     </v-main>
   </v-app>
 </template>
@@ -25,6 +25,19 @@ export default {
           method: 'GET',
         });
         this.cars = data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async deleteCar(value) {
+      try {
+        const { data } = await axios({
+          url: `http://127.0.0.1:3000/car/${value}`,
+          method: 'delete',
+        });
+        console.log(data);
+        this.getCars();
       } catch (error) {
         console.error(error);
       }
