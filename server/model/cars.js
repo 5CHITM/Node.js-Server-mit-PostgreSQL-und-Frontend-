@@ -1,7 +1,20 @@
 const db = require('../db/index.js');
 
 async function getCars() {
-  const { rows } = await db.query('SELECT * FROM cars;');
+  const { rows } = await db.query(
+    'select cars.id as id, title, image, status, price, miles, year_of_make, description, owner, first_name, last_name from cars join owner o on o.id = cars.owner;',
+  );
+  return {
+    code: 200,
+    data: rows,
+  };
+}
+
+async function getCar(id) {
+  const { rows } = await db.query(
+    'select cars.id as id, title, image, status, price, miles, year_of_make, description, owner, first_name, last_name from cars join owner o on o.id = cars.owner where cars.id = $1;',
+    [id],
+  );
   return {
     code: 200,
     data: rows,
@@ -102,4 +115,4 @@ async function changeStatusCar(id, data) {
   }
 }
 
-module.exports = { getCars, deleteCar, addCar, changeStatusCar };
+module.exports = { getCars, getCar, deleteCar, addCar, changeStatusCar };
